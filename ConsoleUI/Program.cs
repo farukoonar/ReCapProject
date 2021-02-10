@@ -13,16 +13,85 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            //InMemoryProductTest();
-            CarManager carManager = new CarManager(new EfCarDal());
+            //InMemoryCarTest();
+            //EfCarTest();
+            //EfColorTest();
+            //EfBrandTest();
+        }
 
-            foreach (var car in carManager.GetCarsByBrandId(1))
+        private static void EfBrandTest()
+        {
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            Brand brand = new Brand { Name = "Tesla" };
+
+            brandManager.Add(brand);
+            brandManager.Update(new Brand { Id = 3, Name = "Kia" });
+            foreach (var b in brandManager.GetAll())
             {
-                Console.WriteLine(car.Description);
+                Console.WriteLine(b.Name);
+            }
+            Console.WriteLine("--------------------");
+
+            brandManager.Delete(brand);
+            foreach (var b in brandManager.GetAll())
+            {
+                Console.WriteLine(b.Name);
             }
         }
 
-        private static void InMemoryProductTest()
+        private static void EfColorTest()
+        {
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+            Color color = new Color { Name = "Red" };
+            colorManager.Add(color);
+            colorManager.Update(new Color { Id = 1, Name = "Blue" });
+            foreach (var c in colorManager.GetAll())
+            {
+                Console.WriteLine(c.Name);
+            }
+            Console.WriteLine("-----------------------------");
+            colorManager.Delete(color);
+            foreach (var c in colorManager.GetAll())
+            {
+                Console.WriteLine(c.Name);
+            }
+        }
+
+        private static void EfCarTest()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+
+            Car car = new Car { BrandId = 6, DailyPrice = 125, ColorId = 1, ModelYear = "2017", Description = "Astra" };
+
+            carManager.Add(car);
+            foreach (var c in carManager.GetCarDetails())
+            {
+                Console.WriteLine("Brand: {0} - Color: {1} - Daily Price: {2} - Description: {3}", c.BrandName, c.ColorName, c.DailyPrice, c.CarDescription);
+            }
+            Console.WriteLine("---------------------------------------------------");
+
+            carManager.Update(new Car { Id = 5, BrandId = 6, DailyPrice = 125, ColorId = 1, ModelYear = "2017", Description = "Astra" });
+            foreach (var c in carManager.GetCarDetails())
+            {
+                Console.WriteLine("Brand: {0} - Color: {1} - Daily Price: {2} - Description: {3}", c.BrandName, c.ColorName, c.DailyPrice, c.CarDescription);
+            }
+            Console.WriteLine("---------------------------------------------------");
+
+            carManager.Delete(car);
+            foreach (var c in carManager.GetCarDetails())
+            {
+                Console.WriteLine("Brand: {0} - Color: {1} - Daily Price: {2} - Description: {3}", c.BrandName, c.ColorName, c.DailyPrice, c.CarDescription);
+            }
+            Console.WriteLine("---------------------------------------------------");
+
+            foreach (var c in carManager.GetCarsByBrandId(1))
+            {
+                Console.WriteLine(c.Description);
+            }
+            Console.WriteLine("---------------------------------------------------");
+        }
+
+        private static void InMemoryCarTest()
         {
             ICarService carService = new CarManager(new InMemoryCarDal());
 

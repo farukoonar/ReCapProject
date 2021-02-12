@@ -26,14 +26,14 @@ namespace ConsoleUI
 
             brandManager.Add(brand);
             brandManager.Update(new Brand { Id = 3, Name = "Kia" });
-            foreach (var b in brandManager.GetAll())
+            foreach (var b in brandManager.GetAll().Data)
             {
                 Console.WriteLine(b.Name);
             }
             Console.WriteLine("--------------------");
 
             brandManager.Delete(brand);
-            foreach (var b in brandManager.GetAll())
+            foreach (var b in brandManager.GetAll().Data)
             {
                 Console.WriteLine(b.Name);
             }
@@ -45,13 +45,13 @@ namespace ConsoleUI
             Color color = new Color { Name = "Red" };
             colorManager.Add(color);
             colorManager.Update(new Color { Id = 1, Name = "Blue" });
-            foreach (var c in colorManager.GetAll())
+            foreach (var c in colorManager.GetAll().Data)
             {
                 Console.WriteLine(c.Name);
             }
             Console.WriteLine("-----------------------------");
             colorManager.Delete(color);
-            foreach (var c in colorManager.GetAll())
+            foreach (var c in colorManager.GetAll().Data)
             {
                 Console.WriteLine(c.Name);
             }
@@ -97,24 +97,24 @@ namespace ConsoleUI
 
         private static void InMemoryCarTest()
         {
-            //CarManager carManager = new CarManager(new InMemoryCarDal());
+            CarManager carManager = new CarManager(new InMemoryCarDal());
 
-            //Car car1 = new Car { Id = 6, BrandId = 2, ColorId = 5, DailyPrice = 130, ModelYear = "2020", Description = "Otomatik Hibrit" };
-            //carManager.Add(car1);
+            Car car1 = new Car { Id = 6, BrandId = 2, ColorId = 5, DailyPrice = 130, ModelYear = "2020", Description = "Otomatik Hibrit" };
+            carManager.Add(car1);
 
-            //foreach (var car in carManager.GetAll())
-            //{
-            //    Console.WriteLine("Açıklama: {0} --- Fiyat: {1}", car.Description, car.DailyPrice);
-            //}
+            foreach (var car in carManager.GetAll().Data)
+            {
+                Console.WriteLine("Açıklama: {0} --- Fiyat: {1}", car.Description, car.DailyPrice);
+            }
 
-            //carManager.Delete(car1);
+            carManager.Delete(car1);
 
-            //Console.WriteLine("------------------------------");
+            Console.WriteLine("------------------------------");
 
-            //foreach (var car in carManager.GetAll())
-            //{
-            //    Console.WriteLine("Açıklama: {0} --- Fiyat: {1}", car.Description, car.DailyPrice);
-            //}
+            foreach (var car in carManager.GetAll().Data)
+            {
+                Console.WriteLine("Açıklama: {0} --- Fiyat: {1}", car.Description, car.DailyPrice);
+            }
         }
     }
 }

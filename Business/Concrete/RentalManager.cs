@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -9,7 +10,7 @@ using System.Text;
 
 namespace Business.Concrete
 {
-    class RentalManager : IRentalService
+    public class RentalManager : IRentalService
     {
         IRentalDal _rentalDal;
         public RentalManager(IRentalDal rentalDal)
@@ -18,8 +19,25 @@ namespace Business.Concrete
         }
         public IResult Add(Rental rental)
         {
-            _rentalDal.Add(rental);
-            return new SuccessResult();
+            bool carIsAvailable = true;
+            foreach (var car in _rentalDal.GetAll())
+            {
+                if (rental.CarId == car.CarId && rental.ReturnDate==null)
+                {
+                    carIsAvailable = false;
+                }
+                
+            }
+            if (carIsAvailable)
+            {
+                _rentalDal.Add(rental);
+                return new SuccessResult();
+            }
+            else
+            {
+                return new ErrorResult(Messages.CarIsNotAvaible);
+            }
+            
             
         }
 

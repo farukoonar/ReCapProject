@@ -9,5 +9,6 @@ namespace Business.Constants
         public static string CarAdded = "Araba eklendi!";
         public static string InvalidCarName = "Hatalı giriş yaptınız!";
         public static string MaintenanceTime = "22:00 ile 24:00 arası işlem yapamazsınız!";
+        public static string CarIsNotAvaible = "Araba henüz teslim alınmadı";
     }
 }

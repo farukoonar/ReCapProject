@@ -92,7 +92,7 @@ namespace ConsoleUI
 
 
             
-            foreach (var c in carManager.GetCarsByBrandId(1).Data)
+            foreach (var c in carManager.GetByBrandId(1).Data)
             {
                 Console.WriteLine(c.Description);
             }

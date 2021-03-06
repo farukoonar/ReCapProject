@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Business.Abstract;
-using Entities.Concrete;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Core.Entities.Concrete;
 
 namespace WebAPI.Controllers
 {
